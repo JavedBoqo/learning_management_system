@@ -1,0 +1,29 @@
+<?php
+define("SPRYSOL","Software Developed By: SPRYSOL (Pvt) Ltd");
+define("SPRYSOL_CONTACT","+(92)-344-5520975");
+
+define("RESP_SUCCESS",200);
+define("RESP_FAIL",500);
+
+define("ERROR_UNEXPECTED","Unexpected error occurred");
+
+
+define("ACTION_ADD","ADD");
+define("ACTION_EDIT","EDIT");
+define("ACTION_DELETE","DELETE");
+
+
+define("P_SECRETARY","SECRETARY");
+define("P_DEPARTMENT","DEPARTMENT");
+define("P_BANK","BANK");
+define("P_CLIENT","CLIENT");
+define("P_CLIENT_PAYMENT","CLIENT_PAYMENT");
+define("P_ADVERTISEMENT","ADVERTISEMENT");
+define("P_ADVERTISEMENT_PRINT","ADVERTISEMENT_PRINT");
+
+define("P_REPORT","P_REPORT");
+define("P_RPT_OUTSTANDING_BILL","P_RPT_OUTSTANDING_BILL");
+define("P_RPT_PAID_BILL","P_RPT_PAID_BILL");
+define("P_RPT_CLIENT_PAYMENT","P_RPT_CLIENT_PAYMENT");
+
+
