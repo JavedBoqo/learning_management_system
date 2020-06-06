@@ -1,6 +1,6 @@
 <?php
 
-class Course extends Common {
+class Course extends Department {
     
     function addCourse($deparmentId, $courseName, $course_file) {
         $db = new Database();
@@ -49,4 +49,3 @@ class Course extends Common {
     }
 
 }
-    

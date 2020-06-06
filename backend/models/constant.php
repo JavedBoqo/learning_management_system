@@ -4,6 +4,7 @@ define("SPRYSOL_CONTACT","");
 
 define("TBL_USER","user");
 define("TBL_DEPARTMENT","department");
+define("TBL_COURSE","course");
 define("TBL_QUIZ","quiz");
 define("TBL_QUIZ_QUESTION_ANSWER","question_answer");
 

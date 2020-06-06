@@ -22,6 +22,11 @@ switch($p) {
         $file="department.php";
         require_once 'backend/models/department.php';
     break;
+    case P_ADMIN_COURSE:
+        $file="course.php";
+        require_once 'backend/models/department.php';
+        require_once 'backend/models/course.php';
+    break;
     case P_ADMIN_LOGIN: 
         $heading ="";
         $file = "login.php";        

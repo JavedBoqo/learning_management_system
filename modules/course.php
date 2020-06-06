@@ -1,48 +1,45 @@
 <?php
-$quiz = new Quiz();
-list($hideForm, $hideList) = $quiz->showHideForm($id);
-
-$departmentId =0; $quizName=""; $list = ""; $link = "?p=".P_ADMIN_QUIZ;
-
+$course =new Course();
+list($hideForm, $hideList) = $course->showHideForm($id);
+$departmentId = $courseName = $courseFile= ""; $list = ""; $link = "?p=".P_ADMIN_COURSE;
+$msg = ""; $process=false;
 if($_POST) {
     // printR($_POST);
-    $recId = $_POST['id']; 
-    $quizName = $_POST['quizName'];
+    $recId = $_POST['recId'];     
+    $courseName = $_POST['courseName'];
     $departmentId = $_POST['department'];
-    $status = $recId == 0 ? $quiz->addQuiz($departmentId,$quizName) : $quiz->updateQuiz($recId,$departmentId,$quizName);
+    $status = $recId == 0 ? $course->addCourse($departmentId,$courseName,$courseFile) : $course->updateCourse($recId,$departmentId,$courseName,$courseFile);
     if($status == PROCESS_SUCCESS) {
         $process=true;
-        $msg=$quiz->showInfo("Quiz Saved Successfully");
+        $msg=$course->showInfo("Course Saved Successfully");
     }
 }
-else $aList = $quiz->getQuiz($id); //$quiz->printR($aList);
+
+$aList = $course->getCourse($id); $course->printR($aList);
+
 
 if($id == 0) {
-    $linkQuestion = "?p=".P_ADMIN_QUIZ_QUESTION;
     foreach($aList as $r) {
-        $list .= '<tr>
-                <td>'.$r->quiz_name.'</td>
-                <td>'.$r->dep_name.'</td>
-                <td>'.$r->question_count.'</td>
+     $list .= '<tr>
+                <td>'.$r->dep_name.'</td>                
                 <td>
-                <a href="'.$link."&id=".$r->id.'"><i class="fa fa-edit"></i></a>
-                <a target="_blank" href="'.$linkQuestion."&quiz_id=".$r->id.'"><i class="fa fa-question-circle"></i></a>
-                ';
-        $list .= $quiz->deleteLink($r->id);
-        $list .='</td></tr>';
+                    <a href="'.$link."&id=".$r->id.'"><i class="fa fa-edit"></i></a> ';
+    $list .= $course->deleteLink($r->id);
+    $list .='</td></tr>';
     }
 }else {
     $aList = $aList[0];
-    $quizName = $aList->quiz_name;
-    $departmentId = $aList->dep_id;
+    $departmentId = $aList->dept_id;
+    $courseName = $aList->course_name;
+    $courseFile = $aList->course_file;
 }
 
-$aListDepartment=$quiz->getDepartment(); //$quiz->printR($aListDepartment);
+$aListDepartment=$course->getDepartment(); //$quiz->printR($aListDepartment);
 $optDepartment = "<option value=''>Select Department</option>";
 foreach($aListDepartment as $opt) {
     $selected = $opt->id==$departmentId ? "selected='selected'":null;
     $optDepartment .= "<option {$selected} value='".$opt->id."'>".$opt->dep_name."</option>";
-}   
+}
 ?>
 <div><?php echo $msg;?></div>
 <div class="row form" style="<?php echo $hideForm;?>">
@@ -52,19 +49,33 @@ foreach($aListDepartment as $opt) {
         <p class="text-muted font-14 m-b-20">        
         </p>
 
-        <form action="#" method="post">
+        <form action="#" method="post">           
             <div class="form-group">
-                <label for="userName">Quiz Name<span class="text-danger">*</span></label>
+                <label for="courseName">Course Name<span class="text-danger">*</span></label>
                 <input type="text" 
                     parsley-trigger="change"
-                    placeholder="Quiz name" 
+                    placeholder="Course name" 
                     class="form-control" 
-                    id="quizName" 
-                    name="quizName"
-                    value="<?php echo $quizName;?>"
+                    id="courseName" 
+                    name="courseName"
+                    value="<?php echo $courseName;?>"
                     required
                     >
             </div>
+            
+            <div class="form-group">
+                <label for="courseFile">Course File<span class="text-danger">*</span></label>
+                <input type="file" 
+                    parsley-trigger="change"
+                    placeholder="Course file" 
+                    class="form-control" 
+                    id="courseFile" 
+                    name="courseFile"
+                    value="<?php echo $courseFile;?>"
+                    required
+                    >
+            </div>
+
             <div class="form-group">
                 <label for="department">Department<span class="text-danger">*</span></label>
                 <select 
@@ -85,7 +96,7 @@ foreach($aListDepartment as $opt) {
                 <a class="btn btn-light waves-effect m-l-5" href="javascript:HideForm()">
                     Back
                 </a>
-                <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                <input type="hidden" name="recId" value="<?php echo $id;?>"/>
             </div>
 
         </form>
@@ -105,12 +116,12 @@ foreach($aListDepartment as $opt) {
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
-                            <th>Quiz</th>
-                            <th>Department</th>
-                            <th>Total Questions</th>
+                            <th>Department</th>                            
                             <th></th>
                         </tr>
                         </thead>
+
+
                         <tbody>
                         <?php echo $list; ?>
                         
@@ -119,7 +130,8 @@ foreach($aListDepartment as $opt) {
                 </div>
             </div>
         </div>
+   
 <?php 
-    $quiz->deleteModal(P_ADMIN_QUIZ_QUESTION,ACTION_DELETE);
-    if($process) echo $quiz->refreshPage($link);
+    $course->deleteModal(P_ADMIN_DEPARTMENT,ACTION_DELETE);
+    if($process) echo $course->refreshPage($link);
 ?>
