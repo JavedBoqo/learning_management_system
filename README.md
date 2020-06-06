@@ -1,4 +1,4 @@
-# lms
+# LMS
 Learning Management System
 
 Technologies
