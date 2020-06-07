@@ -1,22 +1,19 @@
 <?php
-$course =new Course();
-list($hideForm, $hideList) = $course->showHideForm($id);
-$departmentId = $courseName = $courseFile= ""; $list = ""; $link = "?p=".P_ADMIN_COURSE;
+$video =new Video();
+list($hideForm, $hideList) = $video->showHideForm($id);
+$departmentId = $videoName = $videoLink= ""; $list = ""; $link = "?p=".P_ADMIN_VIDEO;
 $msg = ""; $process=false;
 if($_POST) {
-    //$course->printR($_POST);
-    // $course->printR($_FILES);
-    if(count($_FILES) > 0 && isset($_FILES["courseFile"]["name"]) && !empty($_FILES["courseFile"]["name"]))
-        list($msg,$courseFile)=$course->uploadFile("courses","courseFile");        
-
+    //$video->printR($_POST);
     $recId = $_POST['recId'];     
-    $courseName = $_POST['courseName'];
+    $videoName = $_POST['videoName'];
+    $videoLink = $_POST['videoLink'];
     $departmentId = $_POST['department'];
     if(empty($msg)){        
-        $status = $recId == 0 ? $course->addCourse($departmentId,$courseName,$courseFile) : $course->updateCourse($recId,$departmentId,$courseName,$courseFile);
+        $status = $recId == 0 ? $video->addVideo($departmentId,$videoName,$videoLink) : $video->updateVideo($recId,$departmentId,$videoName,$videoLink);
         if($status == PROCESS_SUCCESS) {
             $process=true;
-            $msg=$course->showInfo("Course Saved Successfully");
+            $msg=$video->showInfo("Video Saved Successfully");
         }
     }else { 
         $hideForm="display:block;";
@@ -24,26 +21,27 @@ if($_POST) {
     }
 }
 
-$aList = $course->getCourse($id); ///$course->printR($aList);
+$aList = $video->getVideo($id); ///$video->printR($aList);
 
 if($id == 0) {
     foreach($aList as $r) {
      $list .= '<tr>
-                <td>'.$r->course_name.'</td>  
-                <td>'.$r->dep_name.'</td>                
+                <td>'.$r->dep_name.'</td>  
+                <td>'.$r->video_name.'</td>
+                <td>'.$r->video_link.'</td>    
                 <td>
                     <a href="'.$link."&id=".$r->id.'"><i class="fa fa-edit"></i></a> ';
-    $list .= $course->deleteLink($r->id);
+    $list .= $video->deleteLink($r->id);
     $list .='</td></tr>';
     }
 }else {
     $aList = $aList[0];
     $departmentId = $aList->dept_id;
-    $courseName = $aList->course_name;
-    $courseFile = $aList->course_file;
+    $videoName = $aList->video_name;
+    $videoLink = $aList->video_link;
 }
 
-$aListDepartment=$course->getDepartment(); //$quiz->printR($aListDepartment);
+$aListDepartment=$video->getDepartment(); //$quiz->printR($aListDepartment);
 $optDepartment = "<option value=''>Select Department</option>";
 foreach($aListDepartment as $opt) {
     $selected = $opt->id==$departmentId ? "selected='selected'":null;
@@ -60,27 +58,27 @@ foreach($aListDepartment as $opt) {
 
         <form action="#" method="post" enctype="multipart/form-data">           
             <div class="form-group">
-                <label for="courseName">Course Name<span class="text-danger">*</span></label>
+                <label for="videoName">Video Name<span class="text-danger">*</span></label>
                 <input type="text" 
                     parsley-trigger="change"
-                    placeholder="Course name" 
+                    placeholder="Video name" 
                     class="form-control" 
-                    id="courseName" 
-                    name="courseName"
-                    value="<?php echo $courseName;?>"
+                    id="videoName" 
+                    name="videoName"
+                    value="<?php echo $videoName;?>"
                     required
                     >
             </div>
             
             <div class="form-group">
-                <label for="courseFile">Course File<span class="text-danger">*</span></label>
-                <input type="file" 
+                <label for="videoLink">Video Link<span class="text-danger">*</span></label>
+                <input type="text" 
                     parsley-trigger="change"
-                    placeholder="Course file" 
+                    placeholder="Video link" 
                     class="form-control" 
-                    id="courseFile" 
-                    name="courseFile"
-                    value="<?php echo $courseFile;?>"                    
+                    id="videoLink" 
+                    name="videoLink"
+                    value="<?php echo $videoLink;?>"                    
                     >
             </div>
 
@@ -124,8 +122,9 @@ foreach($aListDepartment as $opt) {
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
-                            <th>Course</th>
                             <th>Department</th>
+                            <th>Video Name</th>
+                            <th>Video Link</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -141,6 +140,6 @@ foreach($aListDepartment as $opt) {
         </div>
    
 <?php 
-    $course->deleteModal(P_ADMIN_COURSE,ACTION_DELETE);
-    if($process) echo $course->refreshPage($link);
+    $video->deleteModal(P_ADMIN_VIDEO,ACTION_DELETE);
+    if($process) echo $video->refreshPage($link);
 ?>

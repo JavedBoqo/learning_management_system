@@ -1,17 +1,19 @@
 <?php
-list($hideForm, $hideList) = showHideForm($id);
+$user=new User();
+list($hideForm, $hideList) = $user->showHideForm($id);
 if($_POST) {
     // printR($_POST);
     $currentPassword = $_POST['currentPassword'];
     $newPassword = $_POST['newPassword'];
     $confirmPassword = $_POST['confirmPassword'];
-    if($newPassword != $confirmPassword) $msg=showInfo("New & confirm password do not match",false);
+    if($newPassword != $confirmPassword) $msg=$user->showInfo("New & confirm password do not match",false);
     else {
-        if(changePassword(getLoggedInEmail(), $currentPassword,$newPassword)==RES_SUCCESS) $msg =showInfo("Password changed successfully");
-        else $msg =showInfo("Password change failed",false);
+        $status=$user->updateUserPassword($loggedInUserId, $currentPassword,$newPassword);
+        if($status==PROCESS_SUCCESS) $msg =$user->showInfo("Password changed successfully");
+        else if($status==-100) $msg =$user->showInfo("Current Password is wrong",false);
+        else $msg =$user->showInfo("Password change failed",false);
     }
 }
-
 ?>
 <div><?php echo $msg;?></div>
 <div class="row form">

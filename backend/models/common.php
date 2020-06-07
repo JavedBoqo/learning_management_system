@@ -25,9 +25,7 @@ class Common {
     function deleteLink($id,$buttonClass="") {	
         return '<a href="#custom-modal" class="fa fa-window-close '.$buttonClass.'" data-animation="door" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a" onclick="setDeleteId('.$id.')"></a>';
     }
-
     
-
     function deleteModal($task, $subTask,$otherData="") {
         $task = base64_encode($task);
         $subTask = base64_encode($subTask);
@@ -67,5 +65,24 @@ class Common {
         }
         refreshPage();
         </script>';
+    }
+
+    function uploadFile($uploadTargetDir,$fileName) {
+        $newfilename=""; $error="";
+        $targetDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR.$uploadTargetDir.DIRECTORY_SEPARATOR;
+        $targetFile = $targetDir . basename($_FILES[$fileName]["name"]);
+        $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+        if(!in_array($fileType,array("pdf","doc","docx")))
+            $error=$this->showInfo("File must be pdf or word document",false);
+        else {
+            $temp = explode(".", $_FILES["file"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp).$fileType;
+            if (move_uploaded_file($_FILES[$fileName]["tmp_name"], $targetDir.$newfilename)) {
+                
+            } else {
+                $error=$this->showInfo("Error uploading file",false);        
+            }
+        }
+        return array($error,$newfilename);
     }
 }

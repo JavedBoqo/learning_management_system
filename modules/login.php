@@ -25,7 +25,7 @@ if($_POST) {
 
                         <div class="card-box p-5">
                             <h2 class="text-uppercase text-center pb-4">
-                        LMS
+                            Teaching Training on ICT
                                 <!-- <a href="index.html" class="text-success">
                                     <span><img src="assets/images/logo.png" alt="" height="26"></span>
                                 </a> -->
@@ -35,7 +35,7 @@ if($_POST) {
 
                                 <div class="form-group m-b-20 row">
                                     <div class="col-12">
-                                        <label for="emailddress">Email address</label>
+                                        <label for="emailddress">Admin Email address</label>
                                         <input class="form-control" type="email" id="emailAddress" name="emailAddress" placeholder="Enter your email" required="">
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@ if($_POST) {
                                 <div class="form-group row m-b-20">
                                     <div class="col-12">
                                         
-                                        <label for="password">Password</label>
+                                        <label for="password">Admin Password</label>
                                         <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password" required="">
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
 <?php
-logoutUser();
+$user=new User();
+$user->logout();
 ?>
 
 <div class="row">
@@ -27,7 +28,7 @@ logoutUser();
 
                                 <div class="form-group row text-center m-t-10">
                                     <div class="col-12">
-                                        <a class="btn btn-block btn-custom waves-effect waves-light" href="./">Click to Login</a>
+                                        <a class="btn btn-block btn-custom waves-effect waves-light" href="./admin.php">Click to Login</a>
                                     </div>
                                 </div>
 

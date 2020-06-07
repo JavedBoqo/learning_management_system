@@ -27,6 +27,21 @@ switch($currentPage) {
 		include_once dirname(__FILE__).'/backend/models/department.php';
 		include_once $actionPath.'department-action.php';
 	break;
+	case P_ADMIN_COURSE:
+		include_once dirname(__FILE__).'/backend/models/department.php';
+		include_once dirname(__FILE__).'/backend/models/course.php';
+		include_once $actionPath.'course-action.php';
+	break;
+	case P_ADMIN_EXERCISE:
+		include_once dirname(__FILE__).'/backend/models/department.php';
+		include_once dirname(__FILE__).'/backend/models/exercise.php';
+		include_once $actionPath.'exercise-action.php';
+	break;
+	case P_ADMIN_VIDEO:
+		include_once dirname(__FILE__).'/backend/models/department.php';
+		include_once dirname(__FILE__).'/backend/models/video.php';
+		include_once $actionPath.'video-action.php';
+	break;
 }
 
 $aResponse = array(

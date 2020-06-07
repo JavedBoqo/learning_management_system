@@ -31,7 +31,7 @@ class Course extends Department {
         $sql  = "UPDATE ".TBL_COURSE." SET".chr(10);
         $sql .= "status=".STATUS_INACTIVE.chr(10);
         $sql .= "WHERE id={$courseID}".chr(10);
-        echo $sql;
+        // echo $sql;
         $db->setQuery($sql);
         if($db->executeUpdateQuery()) return PROCESS_SUCCESS;        
         else return PROCESS_FAIL;
@@ -39,9 +39,10 @@ class Course extends Department {
 
     function getCourse($courseID=0) {
         $db = new Database();
-        $sql ="SELECT * FROM  ".TBL_COURSE.chr(10);
-        $sql .="WHERE status=".STATUS_ACTIVE.chr(10);
-        if($courseID > 0)$sql .="AND id={$courseID}".chr(10);
+        $sql ="SELECT dep_name,c.* FROM  ".TBL_COURSE." c,".TBL_DEPARTMENT." d".chr(10);
+        $sql .="WHERE c.status=".STATUS_ACTIVE.chr(10);
+        $sql .="AND c.dept_id=d.id".chr(10);
+        if($courseID > 0) $sql .="AND c.id={$courseID}".chr(10);
         $sql .="ORDER BY dept_id".chr(10);
         // echo $sql;
         $db->setQuery($sql);

@@ -51,11 +51,11 @@
                                         <h6 class="text-overflow m-0">Welcome <?php echo $loggedInUserName;?>!</h6>
                                     </div>
                                     <!-- item-->
-                                    <a href="./?p=<?php echo base64_encode("CHANGE_PASS");?>" class="dropdown-item notify-item">
+                                    <a href="./admin.php?p=<?php echo P_ADMIN_CHANGE_PASS;?>" class="dropdown-item notify-item">
                                         <i class="fi-cog"></i> <span>Change Password</span>
                                     </a>
                                     <!-- item-->
-                                    <a href="./?p=<?php echo base64_encode("LOGOUT");?>" class="dropdown-item notify-item">
+                                    <a href="./admin.php?p=<?php echo P_ADMIN_LOGOUT;?>" class="dropdown-item notify-item">
                                         <i class="fi-power"></i> <span>Logout</span>
                                     </a>
 
@@ -82,20 +82,20 @@
                             <li class="has-submenu">
                                 <a href="admin.php"><i class="icon-speedometer"></i>Dashboard</a>
                             </li>
-                            <li class="has-submenu">
-                                <a href="admin.php?p=<?php echo P_ADMIN_DEPARTMENT; ?>"><i class="icon-speedometer"></i>Departments</a>
+                            <li>
+                                <a href="admin.php?p=<?php echo P_ADMIN_DEPARTMENT; ?>"><i class="icon-grid"></i>Departments</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="admin.php?p=<?php echo P_ADMIN_COURSE; ?>"><i class="icon-speedometer"></i>Courses</a>
+                                <a href="admin.php?p=<?php echo P_ADMIN_COURSE; ?>"><i class="icon-layers"></i>Courses</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="admin.php?p=<?php echo P_ADMIN_EXERCISE; ?>"><i class="icon-speedometer"></i>Exercise</a>
+                                <a href="admin.php?p=<?php echo P_ADMIN_EXERCISE; ?>"><i class="icon-docs"></i>Exercise</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="admin.php?p=<?php echo P_ADMIN_VIDEO; ?>"><i class="icon-speedometer"></i>Videos</a>
+                                <a href="admin.php?p=<?php echo P_ADMIN_VIDEO; ?>"><i class="icon-social-youtube"></i>Videos</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="admin.php?p=<?php echo P_ADMIN_QUIZ; ?>"><i class="icon-speedometer"></i>Quiz</a>
+                                <a href="admin.php?p=<?php echo P_ADMIN_QUIZ; ?>"><i class="icon-graduation"></i>Quiz</a>
                             </li>
                                                                                     
                         </ul>

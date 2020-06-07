@@ -1,22 +1,22 @@
 <?php
-$course =new Course();
-list($hideForm, $hideList) = $course->showHideForm($id);
-$departmentId = $courseName = $courseFile= ""; $list = ""; $link = "?p=".P_ADMIN_COURSE;
+$exercise =new Exercise();
+list($hideForm, $hideList) = $exercise->showHideForm($id);
+$departmentId = $exerciseName = $exerciseFile= ""; $list = ""; $link = "?p=".P_ADMIN_EXERCISE;
 $msg = ""; $process=false;
 if($_POST) {
-    //$course->printR($_POST);
-    // $course->printR($_FILES);
-    if(count($_FILES) > 0 && isset($_FILES["courseFile"]["name"]) && !empty($_FILES["courseFile"]["name"]))
-        list($msg,$courseFile)=$course->uploadFile("courses","courseFile");        
+    //$exercise->printR($_POST);
+    // $exercise->printR($_FILES);
+    if(count($_FILES) > 0 && isset($_FILES["exerciseFile"]["name"]) && !empty($_FILES["exerciseFile"]["name"]))
+        list($msg,$exerciseFile)=$exercise->uploadFile("exercises","exerciseFile");        
 
     $recId = $_POST['recId'];     
-    $courseName = $_POST['courseName'];
+    $exerciseName = $_POST['exerciseName'];
     $departmentId = $_POST['department'];
     if(empty($msg)){        
-        $status = $recId == 0 ? $course->addCourse($departmentId,$courseName,$courseFile) : $course->updateCourse($recId,$departmentId,$courseName,$courseFile);
+        $status = $recId == 0 ? $exercise->addExercise($departmentId,$exerciseName,$exerciseFile) : $exercise->updateExercise($recId,$departmentId,$exerciseName,$exerciseFile);
         if($status == PROCESS_SUCCESS) {
             $process=true;
-            $msg=$course->showInfo("Course Saved Successfully");
+            $msg=$exercise->showInfo("Exercise Saved Successfully");
         }
     }else { 
         $hideForm="display:block;";
@@ -24,26 +24,26 @@ if($_POST) {
     }
 }
 
-$aList = $course->getCourse($id); ///$course->printR($aList);
+$aList = $exercise->getExercise($id); ///$exercise->printR($aList);
 
 if($id == 0) {
     foreach($aList as $r) {
      $list .= '<tr>
-                <td>'.$r->course_name.'</td>  
+                <td>'.$r->exercise_name.'</td>  
                 <td>'.$r->dep_name.'</td>                
                 <td>
                     <a href="'.$link."&id=".$r->id.'"><i class="fa fa-edit"></i></a> ';
-    $list .= $course->deleteLink($r->id);
+    $list .= $exercise->deleteLink($r->id);
     $list .='</td></tr>';
     }
 }else {
     $aList = $aList[0];
     $departmentId = $aList->dept_id;
-    $courseName = $aList->course_name;
-    $courseFile = $aList->course_file;
+    $exerciseName = $aList->exercise_name;
+    $exerciseFile = $aList->exercise_file;
 }
 
-$aListDepartment=$course->getDepartment(); //$quiz->printR($aListDepartment);
+$aListDepartment=$exercise->getDepartment(); //$quiz->printR($aListDepartment);
 $optDepartment = "<option value=''>Select Department</option>";
 foreach($aListDepartment as $opt) {
     $selected = $opt->id==$departmentId ? "selected='selected'":null;
@@ -59,28 +59,28 @@ foreach($aListDepartment as $opt) {
         </p>
 
         <form action="#" method="post" enctype="multipart/form-data">           
-            <div class="form-group">
-                <label for="courseName">Course Name<span class="text-danger">*</span></label>
+            <div class="form-group">`
+                <label for="exerciseName">Exercise Name<span class="text-danger">*</span></label>
                 <input type="text" 
                     parsley-trigger="change"
-                    placeholder="Course name" 
+                    placeholder="Exercise name" 
                     class="form-control" 
-                    id="courseName" 
-                    name="courseName"
-                    value="<?php echo $courseName;?>"
+                    id="exerciseName" 
+                    name="exerciseName"
+                    value="<?php echo $exerciseName;?>"
                     required
                     >
             </div>
             
             <div class="form-group">
-                <label for="courseFile">Course File<span class="text-danger">*</span></label>
+                <label for="exerciseFile">Exercise File<span class="text-danger">*</span></label>
                 <input type="file" 
                     parsley-trigger="change"
-                    placeholder="Course file" 
+                    placeholder="Exercise file" 
                     class="form-control" 
-                    id="courseFile" 
-                    name="courseFile"
-                    value="<?php echo $courseFile;?>"                    
+                    id="exerciseFile" 
+                    name="exerciseFile"
+                    value="<?php echo $exerciseFile;?>"                    
                     >
             </div>
 
@@ -124,7 +124,7 @@ foreach($aListDepartment as $opt) {
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
-                            <th>Course</th>
+                            <th>Exercise</th>
                             <th>Department</th>
                             <th></th>
                         </tr>
@@ -141,6 +141,6 @@ foreach($aListDepartment as $opt) {
         </div>
    
 <?php 
-    $course->deleteModal(P_ADMIN_COURSE,ACTION_DELETE);
-    if($process) echo $course->refreshPage($link);
+    $exercise->deleteModal(P_ADMIN_EXERCISE,ACTION_DELETE);
+    if($process) echo $exercise->refreshPage($link);
 ?>

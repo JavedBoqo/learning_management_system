@@ -5,6 +5,8 @@ define("SPRYSOL_CONTACT","");
 define("TBL_USER","user");
 define("TBL_DEPARTMENT","department");
 define("TBL_COURSE","course");
+define("TBL_EXERCISE","exercise");
+define("TBL_VIDEO","video");
 define("TBL_QUIZ","quiz");
 define("TBL_QUIZ_QUESTION_ANSWER","question_answer");
 
@@ -33,5 +35,4 @@ define("P_ADMIN_QUIZ",6);
 define("P_ADMIN_QUIZ_QUESTION",7);
 define("P_ADMIN_LOGIN",8);
 define("P_ADMIN_LOGOUT",9);
-
-// define("PAGE_QUIZ",1);
+define("P_ADMIN_CHANGE_PASS",10);

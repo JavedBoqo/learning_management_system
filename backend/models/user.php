@@ -25,14 +25,23 @@ class User extends Common {
         else return PROCESS_FAIL;
     }
 
-    function updateUserPassword($userId,$password) {
+    function updateUserPassword($userId,$currentPassword,$newPassword) {
         $db = new Database();
-        $sql  = "UPDATE ".TBL_USER." SET".chr(10);
-        $sql .= "password='{$password}'".chr(10);
-        $sql .= "WHERE id={$userId}".chr(10);
+        $currentPassword = sha1($currentPassword);
+        $sql ="SELECT * FROM  ".TBL_USER.chr(10);
+        $sql .="WHERE status=".STATUS_ACTIVE.chr(10);
+        $sql .="AND id={$userId}".chr(10);
+        $sql .="AND password='{$currentPassword}'".chr(10);
         $db->setQuery($sql);
-        if($db->executeUpdateQuery()) return PROCESS_SUCCESS;
-        else return PROCESS_FAIL;
+        if(count($db->executeListQuery()) > 0) {
+            $newPassword=sha1($newPassword);
+            $sql  = "UPDATE ".TBL_USER." SET".chr(10);
+            $sql .= "password='{$newPassword}'".chr(10);
+            $sql .= "WHERE id={$userId}".chr(10);
+            $db->setQuery($sql);
+            if($db->executeUpdateQuery()) return PROCESS_SUCCESS;
+            else return PROCESS_FAIL;
+        } else return -100;
     }
 
     function getUser($userId=0) {
@@ -45,7 +54,6 @@ class User extends Common {
 
     }
 
-
     function login($email,$password) {
         $password = sha1($password);
         $db = new Database();
@@ -56,5 +64,10 @@ class User extends Common {
         $db->setQuery($sql);
         return $db->executeListQuery();
 
+    }
+
+    function logout() {
+        unset($_SESSION["USER"]);
+        session_destroy();  
     }
 }
