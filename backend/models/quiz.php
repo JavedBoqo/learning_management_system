@@ -55,11 +55,12 @@ class Quiz extends Department {
         else return PROCESS_FAIL;
     }
 
-    function getQuiz($quizId=0) {
+    function getQuiz($quizId=0,$depId=0) {
         $db = new Database();
         $sql ="SELECT dep_name,q.* FROM  ".TBL_QUIZ." q".chr(10);
         $sql .="LEFT OUTER JOIN ".TBL_DEPARTMENT." d ON q.dep_id=d.id".chr(10);
         $sql .="WHERE q.status=".STATUS_ACTIVE.chr(10);
+        if($depId > 0)$sql .="AND q.dep_id={$depId}".chr(10);
         if($quizId > 0)$sql .="AND q.id={$quizId}".chr(10);
         $sql .="ORDER BY quiz_name".chr(10);
         // echo $sql;

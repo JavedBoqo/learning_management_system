@@ -6,18 +6,37 @@ $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $bDebug = isset($_REQUEST['depth']) ? true : false;
 $sRequestURI = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 session_start();
-
+$projectURL="http://localhost/lms/";
 $db=null;
 
 require_once 'backend/models/constant.php'; 
 require_once 'backend/models/common.php'; 
 require_once 'backend/models/database.php'; 
 
+$publicAccess=false;
+if(isset($_SERVER['SCRIPT_NAME'])) {
+    $sript = $_SERVER['SCRIPT_NAME'];
+    $aCheckIndex = explode("/",$sript);
+    foreach($aCheckIndex as $chk) {
+        if($chk == "index.php") {
+            $publicAccess=true;
+        }
+    }
+}
+
 
 $loggedInUserId = 0;
 $loggedInUserName = 0;
-if(!isset($_SESSION["USER"]) || count($_SESSION["USER"]) ==0) $p=P_ADMIN_LOGIN;
-else {
-    $loggedInUserId = $_SESSION["USER"]["ID"];
-    $loggedInUserName = $_SESSION["USER"]["NAME"];
+
+if($publicAccess) {
+    if(isset($_SESSION["USER"]) && count($_SESSION["USER"]) > 0){
+        $loggedInUserId = $_SESSION["USER"]["ID"];
+        $loggedInUserName = $_SESSION["USER"]["NAME"];
+    }
+}else {
+    if(!isset($_SESSION["USER"]) || count($_SESSION["USER"]) ==0) $p = P_ADMIN_LOGIN;
+    else {
+        $loggedInUserId = $_SESSION["USER"]["ID"];
+        $loggedInUserName = $_SESSION["USER"]["NAME"];
+    }
 }

@@ -20,7 +20,11 @@
 
         <script src="assets/js/modernizr.min.js"></script>
 
-        
+        <?php /*if($publicAccess) {?>
+        <link rel="stylesheet" href="assets/custom/bootstrap.min.css">
+        <script src="assets/custom/jquery.min.js"></script>
+        <script src="assets/custom/bootstrap.min.js"></script>
+        <?php }//*/ ?>
 
     </head>
 

@@ -18,9 +18,10 @@ define("STATUS_INACTIVE",2);
 define("PROCESS_SUCCESS",1);
 define("PROCESS_FAIL",2);
 
-
 define("ERROR_UNEXPECTED","Unexpected error occurred");
 
+define("UPLOAD_DIR_COURSE","uploads/courses/");
+define("UPLOAD_DIR_EXERCISES","uploads/exercises/");
 
 define("ACTION_ADD","ADD");
 define("ACTION_EDIT","EDIT");
@@ -36,3 +37,6 @@ define("P_ADMIN_QUIZ_QUESTION",7);
 define("P_ADMIN_LOGIN",8);
 define("P_ADMIN_LOGOUT",9);
 define("P_ADMIN_CHANGE_PASS",10);
+
+define("P_REGISTER",11);
+define("P_QUIZ_DETAIL",12);

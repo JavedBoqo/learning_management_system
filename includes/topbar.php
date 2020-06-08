@@ -3,7 +3,7 @@
             <div class="topbar-main">
                 <div class="container-fluid">
 
-                <?php if($loggedInUserId > 0) {?>
+                <?php if($loggedInUserId > 0 || $publicAccess) {?>
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Text Logo -->
@@ -50,17 +50,35 @@
                                     <div class="dropdown-item noti-title">
                                         <h6 class="text-overflow m-0">Welcome <?php echo $loggedInUserName;?>!</h6>
                                     </div>
-                                    <!-- item-->
-                                    <a href="./admin.php?p=<?php echo P_ADMIN_CHANGE_PASS;?>" class="dropdown-item notify-item">
-                                        <i class="fi-cog"></i> <span>Change Password</span>
-                                    </a>
-                                    <!-- item-->
-                                    <a href="./admin.php?p=<?php echo P_ADMIN_LOGOUT;?>" class="dropdown-item notify-item">
-                                        <i class="fi-power"></i> <span>Logout</span>
-                                    </a>
+                                    <?php if($publicAccess) {?>
+                                        <a href="./index.php?p=<?php echo P_ADMIN_CHANGE_PASS;?>" class="dropdown-item notify-item">
+                                            <i class="fi-cog"></i> <span>Change Password</span>
+                                        </a>
+                                        <a href="./index.php?p=<?php echo P_ADMIN_LOGOUT;?>" class="dropdown-item notify-item">
+                                            <i class="fi-power"></i> <span>Logout</span>
+                                        </a>
+                                    <?php } else {?>
+                                        <a href="./admin.php?p=<?php echo P_ADMIN_CHANGE_PASS;?>" class="dropdown-item notify-item">
+                                            <i class="fi-cog"></i> <span>Change Password</span>
+                                        </a>
+                                        <a href="./admin.php?p=<?php echo P_ADMIN_LOGOUT;?>" class="dropdown-item notify-item">
+                                            <i class="fi-power"></i> <span>Logout</span>
+                                        </a>
+                                    <?php }?>
 
                                 </div>
                             </li>
+                            <?php } else {?>
+                                <li class="dropdown notification-list">
+                                <a href="./index.php?p=<?php echo P_ADMIN_LOGIN;?>" class="dropdown-item notify-item">
+                                        <span>Login</span>
+                                </a>                                
+                                </li>
+                                <li class="dropdown notification-list">
+                                <a href="./index.php?p=<?php echo P_REGISTER;?>" class="dropdown-item notify-item">
+                                        <span>Register</span>
+                                </a>                                
+                                </li>
                             <?php } ?>
                         </ul>
                     </div>
@@ -76,11 +94,11 @@
                 <div class="container-fluid">
                     <div id="navigation">
                         <!-- Navigation Menu-->
-                        <?php if($loggedInUserId > 0) {?>
+                        <?php if($loggedInUserId > 0 && !$publicAccess) {?>
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a href="admin.php"><i class="icon-speedometer"></i>Dashboard</a>
+                                <a href="admin.php"><i class="icon-speedometer"></i>Home</a>
                             </li>
                             <li>
                                 <a href="admin.php?p=<?php echo P_ADMIN_DEPARTMENT; ?>"><i class="icon-grid"></i>Departments</a>
@@ -99,7 +117,33 @@
                             </li>
                                                                                     
                         </ul>
-                            <?php }?>
+                        <?php }
+                        elseif($publicAccess) {?>
+<ul class="navigation-menu">
+
+<li class="has-submenu">
+    <a href="index.php"><i class="icon-speedometer"></i>Home</a>
+</li>
+<li class="has-submenu">
+    <a href="index.php?p=<?php echo P_ADMIN_COURSE; ?>"><i class="icon-layers"></i>Courses</a>
+</li>
+<li class="has-submenu">
+    <a href="index.php?p=<?php echo P_ADMIN_EXERCISE; ?>"><i class="icon-docs"></i>Exercise</a>
+</li>
+<li class="has-submenu">
+    <a href="index.php?p=<?php echo P_ADMIN_VIDEO; ?>"><i class="icon-social-youtube"></i>Videos</a>
+</li>
+<li class="has-submenu">
+    <a href="index.php?p=<?php echo P_ADMIN_QUIZ; ?>"><i class="icon-graduation"></i>Quiz</a>
+</li>
+                                                        
+</ul>
+                        <?php }
+                        ?>
+
+
+
+                        
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
                 </div> <!-- end container -->

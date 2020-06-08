@@ -1,7 +1,7 @@
 <?php 
-require 'setting.php';
-require 'includes/header_start.php'; 
-require 'includes/header_end.php'; 
+require_once 'setting.php';
+require_once 'includes/header_start.php'; 
+require_once 'includes/header_end.php'; 
 $file = $heading = ""; 
 $msg = ""; $process = false;
 //session_destroy();
