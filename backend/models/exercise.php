@@ -37,12 +37,13 @@ class Exercise extends Department {
         else return PROCESS_FAIL;
     }
 
-    function getExercise($exerciseID=0) {
+    function getExercise($exerciseID=0,$depId=0) {
         $db = new Database();
         $sql ="SELECT dep_name,c.* FROM  ".TBL_EXERCISE." c,".TBL_DEPARTMENT." d".chr(10);
         $sql .="WHERE c.status=".STATUS_ACTIVE.chr(10);
         $sql .="AND c.dept_id=d.id".chr(10);
         if($exerciseID > 0) $sql .="AND c.id={$exerciseID}".chr(10);
+        if($depId > 0) $sql .="AND c.dept_id={$depId}".chr(10);
         $sql .="ORDER BY dept_id".chr(10);
         // echo $sql;
         $db->setQuery($sql);

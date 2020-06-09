@@ -9,6 +9,7 @@ define("TBL_EXERCISE","exercise");
 define("TBL_VIDEO","video");
 define("TBL_QUIZ","quiz");
 define("TBL_QUIZ_QUESTION_ANSWER","question_answer");
+define("TBL_QUIZ_STUDENT","user_quiz");
 
 define("SQL_COMMON_FIELDS","status,created_at,updated_at");
 

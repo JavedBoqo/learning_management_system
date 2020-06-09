@@ -67,4 +67,17 @@ class Quiz extends Department {
         $db->setQuery($sql);
         return $db->executeListQuery();
     }
+    
+    function getLatestQuiz($depId) {
+        $db = new Database();
+        $sql ="SELECT dep_name,q.* FROM  ".TBL_QUIZ." q".chr(10);
+        $sql .="LEFT OUTER JOIN ".TBL_DEPARTMENT." d ON q.dep_id=d.id".chr(10);
+        $sql .="WHERE q.status=".STATUS_ACTIVE.chr(10);
+        if($depId > 0) $sql .="AND q.dep_id={$depId}".chr(10);
+        $sql .="ORDER BY id DESC".chr(10);
+        // echo $sql;
+        $db->setQuery($sql);
+        return $db->executeListQuery();
+    }
 }
+

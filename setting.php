@@ -23,20 +23,25 @@ if(isset($_SERVER['SCRIPT_NAME'])) {
         }
     }
 }
-
+// echo "<pre>".print_r($_SESSION["USER"],true)."</pre>";
 
 $loggedInUserId = 0;
 $loggedInUserName = 0;
-
-if($publicAccess) {
-    if(isset($_SESSION["USER"]) && count($_SESSION["USER"]) > 0){
-        $loggedInUserId = $_SESSION["USER"]["ID"];
-        $loggedInUserName = $_SESSION["USER"]["NAME"];
+$loggedInUserDepId = 0;
+// if($publicAccess) {
+//     if(isset($_SESSION["USER"]) && count($_SESSION["USER"]) > 0){
+//         $loggedInUserId = $_SESSION["USER"]["ID"];
+//         $loggedInUserName = $_SESSION["USER"]["NAME"];
+//     }
+// }else {
+    if(!isset($_SESSION["USER"]) || count($_SESSION["USER"]) ==0) {
+        if($p==P_REGISTER) $p = P_REGISTER;
+        else $p = P_ADMIN_LOGIN;
     }
-}else {
-    if(!isset($_SESSION["USER"]) || count($_SESSION["USER"]) ==0) $p = P_ADMIN_LOGIN;
     else {
+        
         $loggedInUserId = $_SESSION["USER"]["ID"];
         $loggedInUserName = $_SESSION["USER"]["NAME"];
+        $loggedInUserDepId= $_SESSION["USER"]["DEPID"];
     }
-}
+// }

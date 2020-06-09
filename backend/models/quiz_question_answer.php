@@ -43,7 +43,7 @@ class QuizQuestionAnswer extends Quiz {
 
     function getQuizQuestionAnswer($quizId,$quizQAId=0) {
         $db = new Database();
-        $sql ="SELECT q.quiz_name,a.* FROM  ".chr(10);
+        $sql ="SELECT q.id as QuizId,q.quiz_name,a.* FROM  ".chr(10);
         $sql .= TBL_QUIZ_QUESTION_ANSWER." a,".TBL_QUIZ." q".chr(10);
         $sql .="WHERE a.status=".STATUS_ACTIVE.chr(10);
         $sql .="AND a.quiz_id=q.id".chr(10);
@@ -52,6 +52,32 @@ class QuizQuestionAnswer extends Quiz {
         //  echo $sql;
         $db->setQuery($sql);
         return $db->executeListQuery();
+    }
+}
 
+class StudentQuiz extends QuizQuestionAnswer {
+    
+    function deleteStudentQuizQuestionAnswered($quizId) {
+        $db = new Database();
+        $sql  = "UPDATE ".TBL_QUIZ_STUDENT." SET".chr(10);
+        $sql .= "status=".STATUS_INACTIVE.chr(10);
+        $sql .= "WHERE quiz_id={$quizId}".chr(10);
+        $sql .= "AND status=".STATUS_ACTIVE.chr(10);
+        // echo $sql;
+        $db->setQuery($sql);
+        if($db->executeUpdateQuery()) return PROCESS_SUCCESS;
+        else return PROCESS_FAIL;
+    }
+
+    function addStudentQuizQuestionAnswered($quizId,$questionId,$answerGiven) {
+        $db = new Database();
+        $sql  = "INSERT INTO ".TBL_QUIZ_STUDENT." (quiz_id,question_id,answer_given,".SQL_COMMON_FIELDS.")".chr(10);
+        $sql .= "VALUES(".chr(10);
+        $sql .= "{$quizId},{$questionId},{$answerGiven},".STATUS_ACTIVE.",NOW(),NOW()".chr(10);
+        $sql .= ")".chr(10);
+        $db->setQuery($sql);
+        // echo $sql;
+        if($db->executeInserQuery()) return PROCESS_SUCCESS;
+        else return PROCESS_FAIL;
     }
 }

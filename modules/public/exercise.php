@@ -1,13 +1,13 @@
 <?php
-$course =new Course();
-$aList = $course->getCourse($id,$loggedInUserDepId); //$course->printR($aList);
+$exercise =new Exercise();
+$aList = $exercise->getExercise($id,$loggedInUserDepId); //$exercise->printR($aList);
 
 foreach($aList as $r) {
     $list .= '<tr>
-            <td>'.$r->course_name.'</td>  
+            <td>'.$r->exercise_name.'</td>  
             <td>'.$r->dep_name.'</td>                
             <td>
-                <a target="_blank" href="'.$projectURL.UPLOAD_DIR_COURSE.$r->course_file.'"><i class="fa fa-download"></i></a> ';    
+                <a target="_blank" href="'.$projectURL.UPLOAD_DIR_EXERCISES.$r->exercise_file.'"><i class="fa fa-download"></i></a> ';    
     $list .='</td></tr>';
 }
 ?>
@@ -15,7 +15,7 @@ foreach($aList as $r) {
     <div class="col-12">                
         <div class="card-box table-responsive">
             <h4 class="m-t-0">
-                <b>Courses</b>
+                <b>Exercises</b>
             </h4>
             <p class="text-muted font-14 m-b-30">                                
             </p>
@@ -23,7 +23,7 @@ foreach($aList as $r) {
             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                 <tr>
-                    <th>Course</th>
+                    <th>Exercise</th>
                     <th>Department</th>
                     <th>Download Document</th>
                 </tr>

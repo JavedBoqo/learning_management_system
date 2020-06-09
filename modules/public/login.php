@@ -9,6 +9,7 @@ if($_POST) {
         $_SESSION["USER"]["EMAIL"]=$data->email;
         $_SESSION["USER"]["NAME"]=$data->full_name;
         $_SESSION["USER"]["ADMIN"]=$data->is_admin;
+        $_SESSION["USER"]["DEPID"]=$data->dept_id;
         $redirectPage = $data->is_admin > 0 ? "admin.php" : "index.php";
         echo "<script>window.location.href='./".$redirectPage."?p=a';</script>";
     } else $msg=$user->showInfo("Please enter valid Email & Password",false);

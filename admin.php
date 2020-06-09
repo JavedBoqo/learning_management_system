@@ -10,6 +10,12 @@ switch($p) {
     default:
     case P_ADMIN_DASHBOARD:        
         $file = "dashboard.php";
+        require_once 'backend/models/department.php'; 
+        require_once 'backend/models/quiz.php';
+        require_once 'backend/models/user.php';
+        require_once 'backend/models/course.php';
+        require_once 'backend/models/exercise.php';
+        require_once 'backend/models/video.php';
     break;    
     case P_ADMIN_QUIZ:
     case P_ADMIN_QUIZ_QUESTION:

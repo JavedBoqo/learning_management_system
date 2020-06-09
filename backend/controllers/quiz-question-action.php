@@ -1,5 +1,5 @@
 <?php
-    $quiz=new QuizQuestionAnswer();
+    $quiz=new StudentQuiz();
 	$recID = isset($aPost['id']) && !empty($aPost['id']) ?  $aPost['id'] : 0;
 	$quizId = isset($aPost['otherData']) && !empty($aPost['otherData']) ?  $aPost['otherData'] : 0;
 	$sMsg = ERROR_UNEXPECTED;
@@ -60,9 +60,16 @@
 			case "CALCULATE-SCORE":
 				$countCorrect=0;
 				$allQuestions = $_SESSION['USER']["QUIZ"];
+				// $quiz->PrintR($allQuestions);
+				$quizId = $allQuestions[0]['quiz_id'];
+				$quiz->deleteStudentQuizQuestionAnswered($quizId);
 				foreach($allQuestions as $rqs) {
-					if($rqs['answer_selected']==$rqs['answer_correct']) {
-						$countCorrect++;
+					if($rqs['answer_selected'] > 0) {
+						if($rqs['answer_selected']==$rqs['answer_correct']) {
+							$countCorrect++;
+						}
+
+						$quiz->addStudentQuizQuestionAnswered($quizId,$rqs['id'],$rqs['answer_selected']);
 					}
 				}
 				$bStatus=true;

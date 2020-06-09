@@ -37,12 +37,13 @@ class Course extends Department {
         else return PROCESS_FAIL;
     }
 
-    function getCourse($courseID=0) {
+    function getCourse($courseID=0,$depId=0) {
         $db = new Database();
         $sql ="SELECT dep_name,c.* FROM  ".TBL_COURSE." c,".TBL_DEPARTMENT." d".chr(10);
         $sql .="WHERE c.status=".STATUS_ACTIVE.chr(10);
         $sql .="AND c.dept_id=d.id".chr(10);
         if($courseID > 0) $sql .="AND c.id={$courseID}".chr(10);
+        if($depId > 0) $sql .="AND c.dept_id={$depId}".chr(10);
         $sql .="ORDER BY dept_id".chr(10);
         // echo $sql;
         $db->setQuery($sql);

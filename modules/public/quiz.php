@@ -7,7 +7,7 @@
    
 <?php 
 $quiz = new Quiz();
-$aList = $quiz->getQuiz(0); //$quiz->printR($aList);
+$aList = $quiz->getQuiz(0,$loggedInUserDepId); //$quiz->printR($aList);
 foreach($aList as  $qz) {
     $quizTime = $qz->quiz_time/60;
 ?>

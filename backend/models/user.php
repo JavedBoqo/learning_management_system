@@ -1,12 +1,12 @@
 <?php
 class User extends Common {
     
-    function addUser($fullName,$email,$password,$isAdmin=0) {
+    function addUser($fullName,$email,$password,$isAdmin=0, $depId=0) {
         $db = new Database();
         $password = sha1($password);
-        $sql  = "INSERT INTO ".TBL_USER." (full_name,email,password,is_admin,".SQL_COMMON_FIELDS.")".chr(10);
+        $sql  = "INSERT INTO ".TBL_USER." (full_name,email,password,is_admin,dept_id,".SQL_COMMON_FIELDS.")".chr(10);
         $sql .= "VALUES(".chr(10);
-        $sql .= "'{$fullName}','{$email}','{$password}',{$isAdmin},".STATUS_ACTIVE.",NOW(),NOW()".chr(10);
+        $sql .= "'{$fullName}','{$email}','{$password}',{$isAdmin},{$depId},".STATUS_ACTIVE.",NOW(),NOW()".chr(10);
         $sql .= ")".chr(10);
         $db->setQuery($sql);
         // echo $sql;
@@ -51,7 +51,16 @@ class User extends Common {
         if($userId > 0)$sql .="AND id={$userId}".chr(10);
         $db->setQuery($sql);
         return $db->executeListQuery();
+    }
 
+    function checkUserAvailable($email) {
+        $db = new Database();
+        $sql ="SELECT * FROM  ".TBL_USER.chr(10);
+        $sql .="WHERE status=".STATUS_ACTIVE.chr(10);
+        $sql .="AND email='{$email}'".chr(10);
+        $db->setQuery($sql);
+        if(count($db->executeListQuery()) > 0) return false;
+        return true;
     }
 
     function login($email,$password) {
@@ -63,7 +72,6 @@ class User extends Common {
         $sql .="AND password='{$password}'".chr(10);
         $db->setQuery($sql);
         return $db->executeListQuery();
-
     }
 
     function logout() {

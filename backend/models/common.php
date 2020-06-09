@@ -72,8 +72,8 @@ class Common {
         $targetDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR.$uploadTargetDir.DIRECTORY_SEPARATOR;
         $targetFile = $targetDir . basename($_FILES[$fileName]["name"]);
         $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-        if(!in_array($fileType,array("pdf","doc","docx")))
-            $error=$this->showInfo("File must be pdf or word document",false);
+        if(!in_array($fileType,array("pdf","doc","docx","xls")))
+            $error=$this->showInfo("File must be pdf,word or excel document",false);
         else {
             $temp = explode(".", $_FILES["file"]["name"]);
             $newfilename = round(microtime(true)) . '.' . end($temp).$fileType;

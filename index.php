@@ -10,6 +10,12 @@ switch($p) {
     default:
     case P_ADMIN_DASHBOARD:        
         $file = "dashboard.php";
+        require_once 'backend/models/department.php'; 
+        require_once 'backend/models/quiz.php';
+        require_once 'backend/models/user.php';
+        require_once 'backend/models/course.php';
+        require_once 'backend/models/exercise.php';
+        require_once 'backend/models/video.php';
     break;    
     case P_ADMIN_QUIZ:    
          $file = "quiz.php";
@@ -28,11 +34,11 @@ switch($p) {
         require_once 'backend/models/department.php';
         require_once 'backend/models/course.php';
     break;
-    // case P_ADMIN_EXERCISE:
-    //     $file="exercise.php";
-    //     require_once 'backend/models/department.php';
-    //     require_once 'backend/models/exercise.php';
-    // break;
+    case P_ADMIN_EXERCISE:
+        $file="exercise.php";
+        require_once 'backend/models/department.php';
+        require_once 'backend/models/exercise.php';
+    break;
     // case P_ADMIN_VIDEO:
     //     $file="video.php";
     //     require_once 'backend/models/department.php';
@@ -52,11 +58,12 @@ switch($p) {
         $file = "login.php";        
         require_once 'backend/models/user.php'; 
     break;
-    // case P_ADMIN_LOGOUT: 
-    //     $heading ="Logout";
-    //     $file = "logout.php";
-    //     require_once 'backend/models/user.php'; 
-    // break;   //*/
+    case P_REGISTER: 
+         $heading ="Register";
+         $file = "register.php";
+         require_once 'backend/models/department.php'; 
+         require_once 'backend/models/user.php'; 
+     break;   //*/
 }
 ?>
 

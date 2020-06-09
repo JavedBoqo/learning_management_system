@@ -16,6 +16,7 @@ $allQuestions = array();
 $questions=$quiz->getQuizQuestionAnswer($quizId); //$quiz->printR($questions);
 foreach($questions as $ques) {
     $allQuestions[] = array(
+        "quiz_id"=>$ques->QuizId,
         "id"=>$ques->id,
         "question"=>$ques->question,
         "answer1"=>$ques->answer_1,
@@ -42,15 +43,15 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
             <div class="text-center card-box">
                 <div class="member-card pt-2 pb-2">
                     <div class="">
-                        <h4 class="m-b-5"><?php echo $qz->quiz_name;?></h4>
-                        <p class="text-muted"><a href="#"><?php echo $qz->dep_name;?></a> <span>|</span> <span><?php echo $quizTime;?> M</span></p>
+                        <h2 class="m-b-5"><?php echo $qz->quiz_name;?></h2>
+                        <p class=""><a href="#"><?php echo $qz->dep_name;?></a> <span>|</span> <span><?php echo $quizTime;?> Minutes</span></p>
                     </div>
                     <div class="mt-12">
                         <div class="row">
                             <div class="col-12">
                                 <div class="mt-3">
                                     <h4 class="m-b-5"><?php echo $qz->question_count;?></h4>
-                                    <p class="mb-0 text-muted">Total Questions</p>
+                                    <p class="mb-0">Total Questions</p>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +62,7 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
                         echo "<p class='alert alert-danger'>You must login before Quiz start</p>";
                     } ?>
                     
-                    <div style="margin-top: 10px;font-size:50px">
+                    <div style="margin-top: 10px;font-size:80px">
                         <span class="hour"><?php echo $hours;?></span>
                         <span>:</span>
                         <span class="min"><?php echo $mins;?></span>
@@ -108,8 +109,8 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
                 var interval=setInterval(function(){
                     sec--;
                     if(sec<=0) { 
-                        min--;
-                        sec=60;
+                        // min--;
+                        sec=59;
                         $('span.min').html(min);
                         if(hour <=0 && min <=0) {
                             $('p.time-finish').show();
@@ -118,6 +119,17 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
                             clearInterval(interval);                           
                             sec=0;
                         }                        
+                    }
+                    console.log("sec",sec)
+                    if(sec == 59){
+                        if( min == 0 && hour > 0 ){
+                            min = 59;
+                            hour--;
+                        }else{
+                            min--;
+                        }
+                        $('span.min').html(min);
+                        $('span.hour').html(hour);
                     }
                     if(doneQuiz) clearInterval(interval);                    
                     
@@ -129,7 +141,7 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
             function nextQuestion() {
                 var selectedAnswer = $("input[name='answer']:checked"). val();                
                 if(!firstTimeLoad && typeof selectedAnswer == 'undefined') {
-                    alert('selected one');
+                    alert('Please choose from option');
                 } else {                    
                     $.post("action.php",
                         {
@@ -178,7 +190,7 @@ $_SESSION['USER']["QUIZ"] = $allQuestions;
                             var obj = JSON.parse(resp);
                             if(obj.status) {
                                 $('a.score').hide();
-                                $('h4.question').html('<div class="alert alert-success">Quiz Score</div>');
+                                $('h4.question').html('<div class="alert alert-warning">Quiz Score</div>');
                                 var scoreHtml = '<p><span>Total Questions: '+obj.data.countTotal+'<span></p>';
                                 scoreHtml += '<p><span>Correct Answers: '+obj.data.countCorrect+'<span></p>';
                                 $('div.answers').html(scoreHtml);
