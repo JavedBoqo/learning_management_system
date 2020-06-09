@@ -13,10 +13,11 @@ $sMsg = $sResponseFrom = $vData = $vRedirectURL = "";
 $aData=array(); 
 
 $actionPath = dirname(__FILE__).'/backend/controllers/';		
-// echo $currentPage;
+ 
 switch($currentPage) {
 	case P_ADMIN_QUIZ:
 	case P_ADMIN_QUIZ_QUESTION:	
+	case "GET-RANDOM-QUESTION":
 		include_once dirname(__FILE__).'/backend/models/department.php';		
 		include_once dirname(__FILE__).'/backend/models/quiz.php';		
 		include_once dirname(__FILE__).'/backend/models/quiz_question_answer.php';

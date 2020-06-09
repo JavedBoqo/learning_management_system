@@ -49,7 +49,7 @@ class QuizQuestionAnswer extends Quiz {
         $sql .="AND a.quiz_id=q.id".chr(10);
         $sql .="AND a.quiz_id={$quizId}".chr(10);
         if($quizQAId > 0) $sql .="AND a.id={$quizQAId}".chr(10);
-        // echo $sql;
+        //  echo $sql;
         $db->setQuery($sql);
         return $db->executeListQuery();
 

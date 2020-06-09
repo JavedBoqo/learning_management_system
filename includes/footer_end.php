@@ -34,8 +34,14 @@
         <script src="assets/plugins/bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
 
         <script>
+            var hour=0;
+            var min=0;
+            var sec = 60;
+
             $(document).ready(function() {
-                
+                hour = $('span.hour').html();
+                min = $('span.min').html();
+
                 var todayDate = new Date();
                 var dd = String(todayDate.getDate()).padStart(2, '0');
                 var mm = String(todayDate.getMonth() + 1).padStart(2, '0');
