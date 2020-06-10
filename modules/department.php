@@ -50,8 +50,10 @@ if($id == 0) {
                     class="form-control" 
                     id="department" 
                     name="department"
+                    tabindex="1"
                     value="<?php echo $name;?>"
                     required
+                    autofocus
                     >
             </div>
             

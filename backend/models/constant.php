@@ -41,3 +41,4 @@ define("P_ADMIN_CHANGE_PASS",10);
 
 define("P_REGISTER",11);
 define("P_QUIZ_DETAIL",12);
+define("P_VIDEO_PLAY",13);

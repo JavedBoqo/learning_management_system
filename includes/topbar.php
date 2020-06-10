@@ -68,7 +68,7 @@
 
                                 </div>
                             </li>
-                            <?php } else {?>
+                            <?php } else if($publicAccess) {?>
                                 <li class="dropdown notification-list">
                                 <a href="./index.php?p=<?php echo P_ADMIN_LOGIN;?>" class="dropdown-item notify-item">
                                         <span>Login</span>

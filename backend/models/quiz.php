@@ -1,11 +1,11 @@
 <?php
 class Quiz extends Department {
     
-    function addQuiz($depId,$quizName,$quizQuestionCount=0) {
+    function addQuiz($depId,$quizName,$quizTime,$quizQuestionCount=0) {
         $db = new Database();
-        $sql  = "INSERT INTO ".TBL_QUIZ." (dep_id,quiz_name,question_count,".SQL_COMMON_FIELDS.")".chr(10);
+        $sql  = "INSERT INTO ".TBL_QUIZ." (dep_id,quiz_name,quiz_time,question_count,".SQL_COMMON_FIELDS.")".chr(10);
         $sql .= "VALUES(".chr(10);
-        $sql .= "{$depId},'{$quizName}',{$quizQuestionCount},".STATUS_ACTIVE.",NOW(),NOW()".chr(10);
+        $sql .= "{$depId},'{$quizName}',{$quizTime},{$quizQuestionCount},".STATUS_ACTIVE.",NOW(),NOW()".chr(10);
         $sql .= ")".chr(10);
         $db->setQuery($sql);
         // echo $sql;
@@ -13,10 +13,10 @@ class Quiz extends Department {
         else return PROCESS_FAIL;
     }
 
-    function updateQuiz($quizId,$depId,$quizName,$quizQuestionCount=0) {
+    function updateQuiz($quizId,$depId,$quizName,$quizTime,$quizQuestionCount=0) {
         $db = new Database();
         $sql  = "UPDATE ".TBL_QUIZ." SET".chr(10);
-        $sql .= "dep_id={$depId},quiz_name='{$quizName}',question_count={$quizQuestionCount}".chr(10);
+        $sql .= "dep_id={$depId},quiz_name='{$quizName}',quiz_time={$quizTime},question_count={$quizQuestionCount}".chr(10);
         $sql .= "WHERE id={$quizId}".chr(10);
         // echo $sql;
         $db->setQuery($sql);

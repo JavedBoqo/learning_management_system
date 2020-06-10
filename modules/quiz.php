@@ -2,14 +2,15 @@
 $quiz = new Quiz();
 list($hideForm, $hideList) = $quiz->showHideForm($id);
 
-$departmentId =0; $quizName=""; $list = ""; $link = "?p=".P_ADMIN_QUIZ;
+$departmentId =0; $quizName=$quizTime=""; $list = ""; $link = "?p=".P_ADMIN_QUIZ;
 
 if($_POST) {
     // printR($_POST);
     $recId = $_POST['id']; 
     $quizName = $_POST['quizName'];
+    $quizTime= $_POST['quizTime'];
     $departmentId = $_POST['department'];
-    $status = $recId == 0 ? $quiz->addQuiz($departmentId,$quizName) : $quiz->updateQuiz($recId,$departmentId,$quizName);
+    $status = $recId == 0 ? $quiz->addQuiz($departmentId,$quizName,$quizTime) : $quiz->updateQuiz($recId,$departmentId,$quizName,$quizTime);
     if($status == PROCESS_SUCCESS) {
         $process=true;
         $msg=$quiz->showInfo("Quiz Saved Successfully");
@@ -20,10 +21,12 @@ else $aList = $quiz->getQuiz($id); //$quiz->printR($aList);
 if($id == 0) {
     $linkQuestion = "?p=".P_ADMIN_QUIZ_QUESTION;
     foreach($aList as $r) {
+        $quizTimeInMin = $r->quiz_time/60;
         $list .= '<tr>
                 <td>'.$r->quiz_name.'</td>
-                <td>'.$r->dep_name.'</td>
+                <td>'.$quizTimeInMin.'</td>
                 <td>'.$r->question_count.'</td>
+                <td>'.$r->dep_name.'</td>
                 <td>
                 <a href="'.$link."&id=".$r->id.'"><i class="fa fa-edit"></i></a>
                 <a target="_blank" href="'.$linkQuestion."&quiz_id=".$r->id.'"><i class="fa fa-question-circle"></i></a>
@@ -34,6 +37,7 @@ if($id == 0) {
 }else {
     $aList = $aList[0];
     $quizName = $aList->quiz_name;
+    $quizTime = $aList->quiz_time;
     $departmentId = $aList->dep_id;
 }
 
@@ -62,6 +66,18 @@ foreach($aListDepartment as $opt) {
                     id="quizName" 
                     name="quizName"
                     value="<?php echo $quizName;?>"
+                    required
+                    >
+            </div>
+            <div class="form-group">
+                <label for="userName">Quiz Time (Seconds)<span class="text-danger">*</span></label>
+                <input type="text" 
+                    parsley-trigger="change"
+                    placeholder="Quiz time (seconds)" 
+                    class="form-control" 
+                    id="quizTime" 
+                    name="quizTime"
+                    value="<?php echo $quizTime;?>"
                     required
                     >
             </div>
@@ -106,8 +122,9 @@ foreach($aListDepartment as $opt) {
                         <thead>
                         <tr>
                             <th>Quiz</th>
-                            <th>Department</th>
+                            <th>Quiz Time</th>
                             <th>Total Questions</th>
+                            <th>Department</th>
                             <th></th>
                         </tr>
                         </thead>

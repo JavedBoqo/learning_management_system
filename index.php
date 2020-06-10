@@ -39,11 +39,16 @@ switch($p) {
         require_once 'backend/models/department.php';
         require_once 'backend/models/exercise.php';
     break;
-    // case P_ADMIN_VIDEO:
-    //     $file="video.php";
-    //     require_once 'backend/models/department.php';
-    //     require_once 'backend/models/video.php';
-    // break;
+    case P_ADMIN_VIDEO:
+        $file="video.php";
+        require_once 'backend/models/department.php';
+        require_once 'backend/models/video.php';
+    break;
+    case P_VIDEO_PLAY:
+        $file="videoplayer.php";
+        require_once 'backend/models/department.php';
+        require_once 'backend/models/video.php';
+    break;
     // case P_ADMIN_CHANGE_PASS:
     //     $file="change_pass.php";
     //     require_once 'backend/models/user.php';

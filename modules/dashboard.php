@@ -22,7 +22,7 @@ $quizLatest = $quiz->getLatestQuiz(0);
                             
                             <div class="row">
                             <div class="col-sm-6 col-lg-6 col-xl-3">
-                                <a href="?p=">
+                            <a href="?p=<?php echo P_ADMIN_QUIZ; ?>">
                                 <div class="card-box widget-flat border-custom bg-custom text-white">
                                     <i class="fi-tag"></i>
                                     <h3 class="m-b-10"><?php  echo $countQuiz;?></h3>
@@ -33,7 +33,7 @@ $quizLatest = $quiz->getLatestQuiz(0);
             
 
                             <div class="col-sm-6 col-lg-6 col-xl-3">
-                            <a href="?p=">
+                            <a href="?p=<?php echo P_ADMIN_VIDEO; ?>">
                                 <div class="card-box bg-danger widget-flat border-danger text-white">                                
                                     <i class="fi-tag"></i>
                                     <h3 class="m-b-10"><?php echo $countVideo;?></h3>
@@ -43,7 +43,7 @@ $quizLatest = $quiz->getLatestQuiz(0);
                             </div>
 
                             <div class="col-sm-6 col-lg-6 col-xl-3">
-                            <a href="?p=">
+                            <a href="?p=<?php echo P_ADMIN_COURSE; ?>">
                             <div class="card-box widget-flat border-success bg-success text-white">
                                     <i class="fi-tag"></i>
                                     <h3 class="m-b-10"><?php echo $countCourse; ?></h3>
@@ -53,7 +53,7 @@ $quizLatest = $quiz->getLatestQuiz(0);
                             </div>
 
                             <div class="col-sm-6 col-lg-6 col-xl-3">
-                                <a href="?p=">
+                            <a href="?p=<?php echo P_ADMIN_EXERCISE; ?>">
                                 <div class="card-box bg-primary widget-flat border-primary text-white">
                                     <i class="fi-tag"></i>
                                     <h3 class="m-b-10"><?php echo $countExercise;?></h3>
